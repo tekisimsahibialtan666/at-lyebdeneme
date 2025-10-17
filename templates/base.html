@@ -11,37 +11,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block extra_css %}{% endblock %}
   </head>
-  <body>
+  {% block page_vars %}{% endblock %}
+  <body data-page="{{ active_page|default('') }}">
     <header class="site-header">
       <div class="container nav-container">
         <a class="brand" href="{{ url_for('index') }}">
           <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Atölye B Architecture logo">
         </a>
         <nav class="site-nav" id="siteNav">
-          <a href="{{ url_for('index') }}">Home</a>
-          <a href="{{ url_for('portfolio') }}">Portfolio</a>
-          <a href="{{ url_for('about') }}">About Us</a>
-          <a href="{{ url_for('contact') }}" class="contact-link">Contact</a>
+          <a href="{{ url_for('index') }}" class="nav-link{% if active_page == 'home' %} is-active{% endif %}">Home</a>
+          <a href="{{ url_for('portfolio') }}" class="nav-link{% if active_page == 'portfolio' %} is-active{% endif %}">Portfolio</a>
+          <a href="{{ url_for('about') }}" class="nav-link{% if active_page == 'about' %} is-active{% endif %}">About Us</a>
+          <a href="{{ url_for('contact') }}" class="nav-link contact-link{% if active_page == 'contact' %} is-active{% endif %}">Contact</a>
           {% if current_user.is_authenticated %}
             {% if current_user.is_admin %}
-              <a href="{{ url_for('admin_dashboard') }}" class="admin-link">Admin {% if unread_count %}<span class="badge">{{ unread_count }}</span>{% endif %}</a>
+              <a href="{{ url_for('admin_dashboard') }}" class="nav-link admin-link">Admin {% if unread_count %}<span class="badge">{{ unread_count }}</span>{% endif %}</a>
             {% endif %}
             <div class="user-menu">
               <span class="user-name"><i class="fa-solid fa-user"></i> {{ current_user.name.split(' ')[0] }}</span>
               <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
             </div>
           {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('register') }}" class="cta">Register</a>
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+            <a href="{{ url_for('register') }}" class="nav-link cta">Register</a>
           {% endif %}
         </nav>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
     </header>
+    <div class="nav-overlay" id="navOverlay"></div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}

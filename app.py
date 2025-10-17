@@ -103,7 +103,7 @@ class Message(db.Model):
     __tablename__ = "messages"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     content = db.Column(db.Text, nullable=False)
@@ -208,12 +208,11 @@ def about():
 
 
 @app.route("/contact", methods=["GET", "POST"])
-@login_required
 def contact():
     form = MessageForm()
     if form.validate_on_submit():
         message = Message(
-            user_id=current_user.id,
+            user_id=current_user.id if current_user.is_authenticated else None,
             name=form.name.data,
             email=form.email.data,
             content=form.content.data,

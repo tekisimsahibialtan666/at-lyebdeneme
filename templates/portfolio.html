@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% block page_vars %}{% set active_page = 'portfolio' %}{% endblock %}
 {% block title %}Portfolio · Atölye B Mimarlık{% endblock %}
 {% block content %}
-<section class="page-hero">
+<section class="page-hero" data-animate="fade">
   <div class="container">
     <h1>Our Portfolio</h1>
     <p>Discover architectural, interior, and urban projects that reflect our commitment to context-sensitive, human-centered design.</p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container project-grid">
+<section class="section" data-animate>
+  <div class="container project-grid" data-animate-stagger>
     {% for project in projects %}
       <article class="project-card" data-tilt>
         {% if project.images %}

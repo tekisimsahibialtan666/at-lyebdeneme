@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% block page_vars %}{% set active_page = 'contact' %}{% endblock %}
 {% block title %}Contact · Atölye B Mimarlık{% endblock %}
 {% block content %}
-<section class="page-hero">
+<section class="page-hero" data-animate="fade">
   <div class="container narrow">
     <h1>Contact Us</h1>
     <p>We welcome collaboration opportunities. Share your project vision and our team will respond shortly.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" data-animate>
   <div class="container form-card">
     <form method="post" class="styled-form">
       {{ form.hidden_tag() }}
