@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard · Atölye B{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+    <p>Manage projects, review messages, and keep the studio presence up to date.</p>
+  </div>
+</section>
+
+<section class="section admin-overview">
+  <div class="container admin-grid">
+    <div class="stat-card">
+      <span class="stat-label">Projects</span>
+      <span class="stat-value">{{ project_count }}</span>
+      <a class="stat-link" href="{{ url_for('admin_projects') }}">Manage projects</a>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Messages</span>
+      <span class="stat-value">{{ message_count }}</span>
+      <a class="stat-link" href="{{ url_for('admin_messages') }}">View inbox</a>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Unread</span>
+      <span class="stat-value">{{ unread_messages }}</span>
+      <a class="stat-link" href="{{ url_for('admin_messages') }}">Review now</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2>Latest Messages</h2>
+        <a class="btn btn-outline" href="{{ url_for('admin_messages') }}">Open inbox</a>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>Email</th>
+              <th>Received</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for message in latest_messages %}
+              <tr>
+                <td>{{ message.name }}</td>
+                <td>{{ message.email }}</td>
+                <td>{{ message.created_at.strftime('%d %b %Y %H:%M') }}</td>
+                <td>
+                  {% if message.is_read %}
+                    <span class="badge badge-success">Read</span>
+                  {% else %}
+                    <span class="badge badge-warning">New</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="4" class="empty">No messages yet.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

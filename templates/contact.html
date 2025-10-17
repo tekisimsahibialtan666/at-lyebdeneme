@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Contact · Atölye B Mimarlık{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container narrow">
+    <h1>Contact Us</h1>
+    <p>We welcome collaboration opportunities. Share your project vision and our team will respond shortly.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-card">
+    <form method="post" class="styled-form">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name(class_='input') }}
+        {% for error in form.name.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class_='input') }}
+        {% for error in form.email.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.content.label }}
+        {{ form.content(class_='textarea', rows=6) }}
+        {% for error in form.content.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      {{ form.submit(class_='btn btn-primary') }}
+    </form>
+    <div class="contact-card">
+      <h2>Studio</h2>
+      <p>Kıbrıs Sokak 17/2<br>PK:06690 A.AYRANCI/ÇANKAYA/ANKARA</p>
+      <p><strong>Phone:</strong> <a href="tel:+903124286283">0(312) 428 6283</a><br>
+      <strong>Email:</strong> <a href="mailto:info@atolyeb.com">info@atolyeb.com</a><br>
+      <strong>Instagram:</strong> <a href="https://instagram.com/atölyebmimarlık" target="_blank" rel="noreferrer">@atölyebmimarlık</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
