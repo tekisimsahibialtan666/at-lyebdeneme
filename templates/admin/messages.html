@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Inbox · Admin{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>Inbox</h1>
+    <p>Review inquiries sent through the contact form.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Received</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for message in messages %}
+            <tr class="{% if not message.is_read %}unread{% endif %}">
+              <td>{{ message.created_at.strftime('%d %b %Y %H:%M') }}</td>
+              <td>{{ message.name }}</td>
+              <td><a href="mailto:{{ message.email }}">{{ message.email }}</a></td>
+              <td class="message-body">{{ message.content }}</td>
+              <td>
+                {% if message.is_read %}
+                  <span class="badge badge-success">Read</span>
+                {% else %}
+                  <span class="badge badge-warning">New</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if not message.is_read %}
+                <form method="post" action="{{ url_for('admin_mark_message', message_id=message.id) }}">
+                  {{ csrf_token() }}
+                  <button class="btn btn-secondary" type="submit">Mark read</button>
+                </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="6" class="empty">No messages yet.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

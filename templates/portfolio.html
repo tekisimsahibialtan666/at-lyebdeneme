@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Portfolio · Atölye B Mimarlık{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <h1>Our Portfolio</h1>
+    <p>Discover architectural, interior, and urban projects that reflect our commitment to context-sensitive, human-centered design.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container project-grid">
+    {% for project in projects %}
+      <article class="project-card" data-tilt>
+        {% if project.images %}
+          <img src="{{ url_for('uploaded_file', filename=project.images[0].filename) }}" alt="{{ project.title }}">
+        {% else %}
+          <div class="placeholder">Image coming soon</div>
+        {% endif %}
+        <div class="project-card-body">
+          <h3>{{ project.title }}</h3>
+          {% if project.location %}<p class="project-location"><i class="fa-solid fa-location-dot"></i> {{ project.location }}</p>{% endif %}
+          <p>{{ project.short_description }}</p>
+          <div class="project-actions">
+            <a class="btn btn-outline" href="{{ url_for('project_detail', project_id=project.id) }}">More Info</a>
+          </div>
+        </div>
+      </article>
+    {% else %}
+      <p class="empty">No projects added yet. Use the admin panel to showcase your work.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
