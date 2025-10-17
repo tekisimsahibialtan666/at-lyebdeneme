@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Login · Atölye B Mimarlık{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container narrow">
+    <h1>Log In</h1>
+    <p>Access your account to view exclusive resources and manage projects.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-card">
+    <form method="post" class="styled-form auth-form">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class_='input') }}
+        {% for error in form.email.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password(class_='input') }}
+        {% for error in form.password.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group checkbox">
+        {{ form.remember() }} {{ form.remember.label }}
+      </div>
+      {{ form.submit(class_='btn btn-primary full') }}
+    </form>
+    <p class="auth-switch">New to Atölye B? <a href="{{ url_for('register') }}">Create an account</a>.</p>
+  </div>
+</section>
+{% endblock %}

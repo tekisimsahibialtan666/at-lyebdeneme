@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} · Admin{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <p>Upload imagery and craft the narrative behind the project.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <form method="post" enctype="multipart/form-data" class="styled-form admin-form" id="projectForm">
+      {{ form.hidden_tag() }}
+      <div class="form-grid">
+        <div class="form-group">
+          {{ form.title.label }}
+          {{ form.title(class_='input') }}
+          {% for error in form.title.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+        <div class="form-group">
+          {{ form.location.label }}
+          {{ form.location(class_='input') }}
+          {% for error in form.location.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.short_description.label }}
+        {{ form.short_description(class_='input') }}
+        {% for error in form.short_description.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.description.label }}
+        {{ form.description(class_='textarea', rows=6) }}
+        {% for error in form.description.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          {{ form.design_philosophy.label }}
+          {{ form.design_philosophy(class_='textarea', rows=5) }}
+        </div>
+        <div class="form-group">
+          {{ form.materials.label }}
+          {{ form.materials(class_='textarea', rows=5) }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="imageInput">Project Images</label>
+        <div class="dropzone" id="dropzone">
+          <p>Drag & drop images here or <span>browse</span></p>
+          {{ form.images(class_='file-input', id='imageInput', multiple=true) }}
+        </div>
+        <div class="preview-grid" id="previewGrid"></div>
+      </div>
+
+      {% if project and project.images %}
+      <div class="existing-images">
+        <h2>Existing Images</h2>
+        <div class="preview-grid">
+          {% for image in project.images %}
+          <label class="existing-image">
+            <img src="{{ url_for('uploaded_file', filename=image.filename) }}" alt="{{ project.title }} image">
+            <span class="checkbox">
+              <input type="checkbox" name="delete_images" value="{{ image.id }}">
+              Remove
+            </span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="form-actions">
+        {{ form.submit(class_='btn btn-primary') }}
+        <a class="btn btn-outline" href="{{ url_for('admin_projects') }}">Cancel</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

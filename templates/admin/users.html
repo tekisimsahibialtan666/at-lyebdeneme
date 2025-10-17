@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}User Management · Admin{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>User Management</h1>
+    <p>Review registered accounts, assign admin privileges, and deactivate access when needed.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Joined</th>
+            <th>Last Login</th>
+            <th>Admin</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            {% set form = forms[user.id] %}
+            <tr>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.created_at.strftime('%d %b %Y') }}</td>
+              <td>{% if user.last_login_at %}{{ user.last_login_at.strftime('%d %b %Y %H:%M') }}{% else %}<span class="empty">Never</span>{% endif %}</td>
+              <td>{% if user.is_admin %}<span class="badge badge-success">Yes</span>{% else %}<span class="badge badge-neutral">No</span>{% endif %}</td>
+              <td>{% if user.is_active_account %}<span class="badge badge-success">Active</span>{% else %}<span class="badge badge-warning">Suspended</span>{% endif %}</td>
+              <td>
+                <form method="post" class="inline-form">
+                  {{ form.hidden_tag() }}
+                  <label class="checkbox-inline">{{ form.is_admin() }} <span>Admin</span></label>
+                  <label class="checkbox-inline">{{ form.is_active_account() }} <span>Active</span></label>
+                  {{ form.submit(class_='btn btn-secondary btn-small') }}
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="7" class="empty">No registered users yet.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

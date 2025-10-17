@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Inbox · Admin{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>Inbox</h1>
+    <p>Review inquiries sent through the contact form.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <form method="get" class="filter-bar">
+      {{ filter_form.hidden_tag() }}
+      <div class="filter-group">
+        {{ filter_form.status.label }}
+        {{ filter_form.status(class_='input') }}
+      </div>
+      <div class="filter-group">
+        {{ filter_form.category.label }}
+        {{ filter_form.category(class_='input') }}
+      </div>
+      <div class="filter-group">
+        {{ filter_form.search.label }}
+        {{ filter_form.search(class_='input', placeholder='Search name, email, tags...') }}
+      </div>
+      <div class="filter-group">
+        {{ filter_form.start_date.label }}
+        {{ filter_form.start_date(class_='input', type='date') }}
+      </div>
+      <div class="filter-group">
+        {{ filter_form.end_date.label }}
+        {{ filter_form.end_date(class_='input', type='date') }}
+      </div>
+      <div class="filter-actions">
+        {{ filter_form.submit(class_='btn btn-secondary') }}
+        <a class="btn btn-link" href="{{ url_for('admin_messages') }}">Reset</a>
+      </div>
+    </form>
+
+    <div class="message-board">
+      {% for message in messages %}
+        {% set form = message_forms[message.id] %}
+        <article class="message-card{% if not message.is_read %} unread{% endif %}">
+          <header class="message-card__header">
+            <div>
+              <h2>{{ message.name }}</h2>
+              <p><a href="mailto:{{ message.email }}">{{ message.email }}</a></p>
+            </div>
+            <div class="message-meta">
+              <span class="badge badge-neutral">{{ message.category }}</span>
+              <time datetime="{{ message.created_at.isoformat() }}">{{ message.created_at.strftime('%d %b %Y %H:%M') }}</time>
+            </div>
+          </header>
+          <div class="message-card__body">
+            <p>{{ message.content|nl2br }}</p>
+            {% if message.tags %}
+              <ul class="tag-list">
+                {% for tag in message.tags.split(',') %}
+                  <li>{{ tag.strip() }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% if message.admin_response %}
+              <div class="admin-response">
+                <h3>Admin Response</h3>
+                <p>{{ message.admin_response|nl2br }}</p>
+                {% if message.responded_at %}
+                  <small>Responded {{ message.responded_at.strftime('%d %b %Y %H:%M') }}</small>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+          <footer class="message-card__footer">
+            <form method="post" class="message-admin-form">
+              {{ form.hidden_tag() }}
+              <div class="form-grid">
+                <div class="form-group">
+                  {{ form.status.label }}
+                  {{ form.status(class_='input') }}
+                </div>
+                <div class="form-group">
+                  {{ form.category.label }}
+                  {{ form.category(class_='input') }}
+                </div>
+                <div class="form-group">
+                  {{ form.tags.label }}
+                  {{ form.tags(class_='input', placeholder='proposal, renovation, follow-up') }}
+                  {% if form.tags.description %}<small>{{ form.tags.description }}</small>{% endif %}
+                </div>
+                <div class="form-group full-width">
+                  {{ form.admin_response.label }}
+                  {{ form.admin_response(class_='textarea', rows=3) }}
+                </div>
+                <div class="form-group">
+                  <label class="checkbox-inline">{{ form.mark_read() }} {{ form.mark_read.label.text }}</label>
+                </div>
+                <div class="form-group actions">
+                  {{ form.submit(class_='btn btn-primary') }}
+                </div>
+              </div>
+            </form>
+          </footer>
+        </article>
+      {% else %}
+        <div class="empty-card">
+          <p>No messages match your filters.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

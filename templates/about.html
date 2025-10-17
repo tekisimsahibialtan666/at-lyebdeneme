@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}About Atölye B Mimarlık{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container narrow">
+    <h1>{{ about_content.title }}</h1>
+    <p>{{ about_content.body|nl2br }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow about-content">
+    <div class="about-grid">
+      <div class="about-block">
+        <h2>Mission</h2>
+        <p>Design spaces that elevate daily life through meticulous attention to context, craft, and material honesty.</p>
+      </div>
+      <div class="about-block">
+        <h2>Vision</h2>
+        <p>Create enduring, human-centered environments that foster meaningful connections between people and place.</p>
+      </div>
+      <div class="about-block">
+        <h2>Approach</h2>
+        <p>We collaborate closely with clients, consultants, and makers to orchestrate projects from concept to completion with clarity and care.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact-details">
+  <div class="container narrow">
+    <h2>Contact</h2>
+    <ul class="contact-list">
+      <li><i class="fa-solid fa-phone"></i> <a href="tel:{{ contact_info.phone|replace(' ','')|replace('(','')|replace(')','')|replace('-','') }}">{{ contact_info.phone }}</a></li>
+      <li><i class="fa-solid fa-location-dot"></i> {{ contact_info.address }}</li>
+      <li><i class="fa-solid fa-envelope"></i> <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a></li>
+      <li><i class="fa-brands fa-instagram"></i> <a href="https://instagram.com/{{ contact_info.instagram|urlencode }}" target="_blank" rel="noreferrer">Instagram @{{ contact_info.instagram }}</a></li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

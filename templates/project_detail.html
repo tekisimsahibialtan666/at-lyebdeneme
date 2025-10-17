@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title }} · Atölye B Mimarlık{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <a class="back-link" href="{{ url_for('portfolio') }}"><i class="fa-solid fa-arrow-left"></i> Back to portfolio</a>
+    <h1>{{ project.title }}</h1>
+    {% if project.location %}<p class="project-location"><i class="fa-solid fa-location-dot"></i> {{ project.location }}</p>{% endif %}
+    <p>{{ project.short_description }}</p>
+  </div>
+</section>
+
+<section class="section project-detail">
+  <div class="container detail-grid">
+    <div class="gallery">
+      {% if project.images %}
+        <div class="gallery-grid">
+          {% for image in project.images %}
+            <a href="{{ url_for('uploaded_file', filename=image.filename) }}" target="_blank">
+              <img src="{{ url_for('uploaded_file', filename=image.filename) }}" alt="{{ project.title }} image {{ loop.index }}">
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty">Project imagery will appear here once uploaded.</p>
+      {% endif %}
+    </div>
+    <div class="project-info">
+      <section>
+        <h2>Project Overview</h2>
+        <p>{{ project.description | nl2br }}</p>
+      </section>
+      {% if project.design_philosophy %}
+      <section>
+        <h2>Design Philosophy</h2>
+        <p>{{ project.design_philosophy | nl2br }}</p>
+      </section>
+      {% endif %}
+      {% if project.materials %}
+      <section>
+        <h2>Materials & Systems</h2>
+        <p>{{ project.materials | nl2br }}</p>
+      </section>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Atölye B Mimarlık · Architecture & Interior Design{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-content">
+    <div>
+      <span class="eyebrow">Architectural Studio</span>
+      <h1>Creating spaces where <span class="accent">design</span> meets <span class="accent">purpose</span>.</h1>
+      <p>Atölye B Mimarlık crafts refined, human-focused environments that integrate architecture, interiors, and urban design. Explore our latest commissions and concepts.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('portfolio') }}" class="btn btn-primary">View Portfolio</a>
+        <a href="{{ url_for('about') }}" class="btn btn-outline">About the Studio</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <p class="hero-statement">“Architecture is the thoughtful play of light, material, and context.”</p>
+        <span class="hero-credit">— Atölye B Team</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section portfolio-preview">
+  <div class="container section-header">
+    <h2>Featured Projects</h2>
+    <p>A glimpse into our recent work blending architectural innovation with enduring aesthetics.</p>
+  </div>
+  <div class="container project-grid">
+    {% for project in projects %}
+      <article class="project-card" data-tilt>
+        {% if project.images %}
+          <img src="{{ url_for('uploaded_file', filename=project.images[0].filename) }}" alt="{{ project.title }}">
+        {% else %}
+          <div class="placeholder">Image coming soon</div>
+        {% endif %}
+        <div class="project-card-body">
+          <h3>{{ project.title }}</h3>
+          {% if project.location %}<p class="project-location"><i class="fa-solid fa-location-dot"></i> {{ project.location }}</p>{% endif %}
+          <p>{{ project.short_description }}</p>
+          <a class="link" href="{{ url_for('project_detail', project_id=project.id) }}">More details <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </article>
+    {% else %}
+      <p class="empty">Projects will appear here once added in the admin panel.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section services">
+  <div class="container services-grid">
+    <div class="service-card">
+      <h3><i class="fa-solid fa-building-columns"></i> Architecture</h3>
+      <p>We lead projects from concept to completion, ensuring that each building responds to its environment and its inhabitants.</p>
+    </div>
+    <div class="service-card">
+      <h3><i class="fa-solid fa-couch"></i> Interior Design</h3>
+      <p>Our interiors balance elegance with functionality, integrating bespoke details, materials, and furnishings.</p>
+    </div>
+    <div class="service-card">
+      <h3><i class="fa-solid fa-seedling"></i> Urban Strategy</h3>
+      <p>We collaborate with communities to craft livable urban experiences that respect cultural and ecological contexts.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section callout">
+  <div class="container callout-card">
+    <div>
+      <h2>Ready to collaborate on your next project?</h2>
+      <p>Let’s discuss how we can bring clarity, craft, and character to your space.</p>
+    </div>
+    <a href="{{ url_for('contact') }}" class="btn btn-primary">Start a conversation</a>
+  </div>
+</section>
+{% endblock %}

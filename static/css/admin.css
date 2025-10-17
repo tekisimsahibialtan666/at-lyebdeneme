@@ -1,0 +1,252 @@
+.admin-form {
+  margin-top: 1rem;
+}
+
+.admin-form h2 {
+  margin-bottom: 0.75rem;
+}
+
+.admin-hero {
+  background: linear-gradient(135deg, rgba(31, 92, 91, 0.12), rgba(15, 23, 42, 0.08));
+}
+
+.admin-overview .stat-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 18px 40px -32px rgba(15, 23, 42, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-card {
+  display: grid;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.form-card .form-aside {
+  background: rgba(15, 23, 42, 0.04);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.05);
+}
+
+.form-card .form-aside h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.form-card .form-aside ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.stat-label {
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.stat-link {
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.data-table tr.unread {
+  background: rgba(31, 92, 91, 0.05);
+}
+
+.data-table tr.unread td {
+  font-weight: 400;
+}
+
+.filter-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: end;
+}
+
+.filter-bar .filter-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.message-board {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.message-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px -42px rgba(15, 23, 42, 0.6);
+  padding: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.message-card.unread {
+  border-color: rgba(31, 92, 91, 0.35);
+  box-shadow: 0 30px 70px -50px rgba(31, 92, 91, 0.8);
+}
+
+.message-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.message-card__header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.message-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.message-card__body {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.tag-list li {
+  background: rgba(31, 92, 91, 0.1);
+  color: var(--accent);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-response {
+  background: rgba(15, 23, 42, 0.04);
+  border-left: 3px solid var(--accent);
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+
+.admin-response h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.message-card__footer .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.message-card__footer .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.message-card__footer .actions {
+  display: flex;
+  align-items: center;
+}
+
+.status-list,
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.status-list li,
+.user-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.status-list li strong {
+  font-size: 1.2rem;
+}
+
+.user-list li .user-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.inline-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.inline-form .checkbox-inline {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.btn-small {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.empty-card {
+  background: rgba(15, 23, 42, 0.04);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (max-width: 960px) {
+  .form-card {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card .form-aside {
+    order: -1;
+  }
+
+  .inline-form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

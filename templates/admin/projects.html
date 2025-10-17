@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Manage Projects · Admin{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>Projects</h1>
+    <p>Create, edit, and curate portfolio projects.</p>
+    <a class="btn btn-primary" href="{{ url_for('admin_create_project') }}">Add new project</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            <tr>
+              <td>{{ project.title }}</td>
+              <td>{{ project.location or '—' }}</td>
+              <td>{{ project.created_at.strftime('%d %b %Y') }}</td>
+              <td class="actions">
+                <a class="btn btn-outline" href="{{ url_for('project_detail', project_id=project.id) }}" target="_blank">View</a>
+                <a class="btn btn-secondary" href="{{ url_for('admin_edit_project', project_id=project.id) }}">Edit</a>
+                <form method="post" action="{{ url_for('admin_delete_project', project_id=project.id) }}" onsubmit="return confirm('Delete this project?');">
+                  {{ csrf_token() }}
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4" class="empty">No projects found. Start by adding your first project.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

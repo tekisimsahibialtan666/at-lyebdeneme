@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Edit About · Admin{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero admin-hero">
+  <div class="container">
+    <h1>Edit About Page</h1>
+    <p>Update your studio story and key contact information.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-card">
+    <form method="post" class="styled-form">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.headline.label }}
+        {{ form.headline(class_='input') }}
+        {% for error in form.headline.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.body.label }}
+        {{ form.body(class_='textarea', rows=8) }}
+        {% for error in form.body.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          {{ form.phone.label }}
+          {{ form.phone(class_='input') }}
+          {% for error in form.phone.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+        <div class="form-group">
+          {{ form.email.label }}
+          {{ form.email(class_='input') }}
+          {% for error in form.email.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.address.label }}
+        {{ form.address(class_='textarea', rows=3) }}
+        {% for error in form.address.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.instagram.label }}
+        {{ form.instagram(class_='input', placeholder='atolyebmimarlik') }}
+        {% for error in form.instagram.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      {{ form.submit(class_='btn btn-primary') }}
+    </form>
+    <aside class="form-aside">
+      <h2>Layout Guidance</h2>
+      <ul>
+        <li><strong>Hero Area:</strong> The headline and first paragraph populate the top hero block of the About page.</li>
+        <li><strong>Three Pillars:</strong> Mission, Vision, and Approach remain fixed to keep messaging consistent. Use the hero copy to introduce updates.</li>
+        <li><strong>Contact Strip:</strong> Phone, email, address, and Instagram feed both the About page contact list and the global footer.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+{% endblock %}
