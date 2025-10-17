@@ -75,6 +75,37 @@
         card.style.setProperty('--tiltY', '0deg');
       });
     });
+
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      const floatElements = hero.querySelectorAll('[data-float]');
+      if (floatElements.length) {
+        const resetFloat = () => {
+          floatElements.forEach((element) => {
+            element.style.setProperty('--moveX', '0px');
+            element.style.setProperty('--moveY', '0px');
+          });
+        };
+
+        const updateFloat = (event) => {
+          const bounds = hero.getBoundingClientRect();
+          const relativeX = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const relativeY = (event.clientY - bounds.top) / bounds.height - 0.5;
+          const maxOffset = 26;
+
+          floatElements.forEach((element) => {
+            const strength = parseFloat(element.dataset.float || '1');
+            const offsetX = relativeX * maxOffset * strength;
+            const offsetY = relativeY * maxOffset * strength;
+            element.style.setProperty('--moveX', `${offsetX}px`);
+            element.style.setProperty('--moveY', `${offsetY}px`);
+          });
+        };
+
+        hero.addEventListener('pointermove', updateFloat);
+        hero.addEventListener('pointerleave', resetFloat);
+      }
+    }
   }
 
   const animatedElements = document.querySelectorAll('[data-animate], [data-animate-stagger]');
