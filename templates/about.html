@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% block page_vars %}{% set active_page = 'about' %}{% endblock %}
 {% block title %}About Atölye B Mimarlık{% endblock %}
 {% block content %}
-<section class="page-hero">
+<section class="page-hero" data-animate="fade">
   <div class="container narrow">
     <h1>About Us</h1>
     <p>Atölye B Mimarlık is an architecture and interior design practice based in Ankara. We approach every commission with curiosity and care, shaping environments that are deeply rooted in their context and crafted with refined detail.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" data-animate>
   <div class="container narrow about-content">
     <h2>Our Practice</h2>
     <p>We believe in architecture as a collaborative journey. Each project is a dialogue between client, site, and community. Our studio delivers integrated solutions that encompass architectural design, interior experiences, and urban interventions. We embrace sustainable practices, advanced technologies, and local craftsmanship to deliver enduring value.</p>
@@ -21,7 +22,7 @@
   </div>
 </section>
 
-<section class="section contact-details">
+<section class="section contact-details" data-animate="rise">
   <div class="container narrow">
     <h2>Contact</h2>
     <ul class="contact-list">

@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Register · Atölye B Mimarlık{% endblock %}
 {% block content %}
-<section class="page-hero">
+<section class="page-hero" data-animate="fade">
   <div class="container narrow">
     <h1>Create Account</h1>
     <p>Register to bookmark inspiration, connect with our team, and access tailored updates.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" data-animate>
   <div class="container form-card">
     <form method="post" class="styled-form auth-form">
       {{ form.hidden_tag() }}

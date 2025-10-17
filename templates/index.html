@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% block page_vars %}{% set active_page = 'home' %}{% endblock %}
 {% block title %}Atölye B Mimarlık · Architecture & Interior Design{% endblock %}
 {% block content %}
-<section class="hero">
+<section class="hero" data-animate="fade">
   <div class="container hero-content">
     <div>
       <span class="eyebrow">Architectural Studio</span>
@@ -21,12 +22,12 @@
   </div>
 </section>
 
-<section class="section portfolio-preview">
+<section class="section portfolio-preview" data-animate>
   <div class="container section-header">
     <h2>Featured Projects</h2>
     <p>A glimpse into our recent work blending architectural innovation with enduring aesthetics.</p>
   </div>
-  <div class="container project-grid">
+  <div class="container project-grid" data-animate-stagger>
     {% for project in projects %}
       <article class="project-card" data-tilt>
         {% if project.images %}
@@ -47,8 +48,8 @@
   </div>
 </section>
 
-<section class="section services">
-  <div class="container services-grid">
+<section class="section services" data-animate="rise">
+  <div class="container services-grid" data-animate-stagger>
     <div class="service-card">
       <h3><i class="fa-solid fa-building-columns"></i> Architecture</h3>
       <p>We lead projects from concept to completion, ensuring that each building responds to its environment and its inhabitants.</p>
@@ -64,7 +65,7 @@
   </div>
 </section>
 
-<section class="section callout">
+<section class="section callout" data-animate="zoom">
   <div class="container callout-card">
     <div>
       <h2>Ready to collaborate on your next project?</h2>
